@@ -1126,6 +1126,7 @@ typedef struct
 	int disableDefaultTrustStore;
 
 	/**
+<<<<<<< HEAD
 	 * The protocol-lists must be in wire-format, which is defined as a vector of non-empty, 8-bit length-prefixed, byte strings.
 	 * The length-prefix byte is not included in the length. Each string is limited to 255 bytes. A byte-string length of 0 is invalid.
 	 * A truncated byte-string is invalid.
@@ -1139,9 +1140,23 @@ typedef struct
 	 * Exists only if struct_version >= 5
 	 */
 	unsigned int protos_len;
+
+	/**
+	 * Use the operating system's native CA store for certificate verification.
+	 * Works only on Windows when built to use OpenSSL.
+	 * Exists only if struct_version >= 5
+	 */
+	int useWindowsCaStore;
+
+	/**
+	* Set the Store name. Default is ROOT
+	* Works only on Windows when built to use OpenSSL.
+	* Exists only if struct_version >= 5
+	*/
+	const char* setWindowsCaStoreName;
 } MQTTAsync_SSLOptions;
 
-#define MQTTAsync_SSLOptions_initializer { {'M', 'Q', 'T', 'S'}, 5, NULL, NULL, NULL, NULL, NULL, 1, MQTT_SSL_VERSION_DEFAULT, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0 }
+#define MQTTAsync_SSLOptions_initializer { {'M', 'Q', 'T', 'S'}, 6, NULL, NULL, NULL, NULL, NULL, 1, MQTT_SSL_VERSION_DEFAULT, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 0, "ROOT"}
 
 /** Utility structure where name/value pairs are needed */
 typedef struct

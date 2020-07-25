@@ -1598,8 +1598,13 @@ static MQTTResponse MQTTClient_connectURI(MQTTClient handle, MQTTClient_connectO
 		}
 		if (m->c->sslopts->struct_version >= 5)
 		{
-		    m->c->sslopts->protos = options->ssl->protos;
-		    m->c->sslopts->protos_len = options->ssl->protos_len;
+			m->c->sslopts->protos = options->ssl->protos;
+			m->c->sslopts->protos_len = options->ssl->protos_len;
+		}
+		if (m->c->sslopts->struct_version >= 6)
+		{
+			m->c->sslopts->useWindowsCaStore = options->ssl->useWindowsCaStore;
+			m->c->sslopts->setWindowsCaStoreName = options->ssl->setWindowsCaStoreName;
 		}
 	}
 #endif

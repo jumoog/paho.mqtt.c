@@ -787,6 +787,11 @@ int MQTTAsync_connect(MQTTAsync handle, const MQTTAsync_connectOptions* options)
 			m->c->sslopts->protos = options->ssl->protos;
 			m->c->sslopts->protos_len = options->ssl->protos_len;
 		}
+		if (m->c->sslopts->struct_version >= 6)
+		{
+			m->c->sslopts->useWindowsCaStore = options->ssl->useWindowsCaStore;
+			m->c->sslopts->setWindowsCaStoreName = options->ssl->setWindowsCaStoreName;
+		}
 	}
 #else
 	if (options->struct_version != 0 && options->ssl)
