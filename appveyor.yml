@@ -26,14 +26,6 @@ environment:
 configuration: Debug
 install:
   - cmd: openssl version
-  - cmd: C:\Python36\python --version
-  - cmd: netsh advfirewall firewall add rule name="Python 3.6" dir=in action=allow program="C:\Python36\python.exe" enable=yes
-  - cmd: netsh advfirewall firewall add rule name="Open Port 1883" dir=in action=allow protocol=TCP localport=1883
-  - cmd: netsh advfirewall set allprofiles state off
-  - ps: Start-Process C:\Python36\python -ArgumentList 'test\mqttsas.py'
-  - cmd: git clone https://github.com/eclipse/paho.mqtt.testing.git
-  - cmd: cd paho.mqtt.testing\interoperability
-  - ps: Start-Process C:\Python36\python -ArgumentList 'startbroker.py -c localhost_testing.conf'
   - cmd: cd ..\..
 
 build_script:
@@ -55,8 +47,6 @@ build_script:
     cmake -G "NMake Makefiles" -DPAHO_WITH_SSL=TRUE -DOPENSSL_ROOT_DIR=%OPENSSL_ROOT_DIR% -DPAHO_BUILD_DOCUMENTATION=FALSE -DPAHO_BUILD_SAMPLES=TRUE -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=TRUE -DPAHO_BUILD_STATIC=%PAHO_BUILD_STATIC% -DPAHO_BUILD_SHARED=%PAHO_BUILD_SHARED% ..
 
     nmake
-
-    ctest -T test -VV
 
     cd ..
 
@@ -96,5 +86,3 @@ artifacts:
 - path: eclipse-paho-mqtt-c-windows.zip
   name: paho-mqtt-c
 
-test:
-  assemblies: build/Testing/*/Test.xml
