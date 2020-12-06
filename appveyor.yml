@@ -26,7 +26,6 @@ environment:
 configuration: Debug
 install:
   - cmd: openssl version
-  - cmd: cd ..\..
 
 build_script:
 - cmd: >-
